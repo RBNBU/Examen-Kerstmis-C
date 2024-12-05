@@ -9,3 +9,10 @@ device;19.00
 device;19.00
 device;19.00
 device;19.00
+device;34.00
+device;34.00
+devices;34.00
+devices;34.00
+device;34.00
+device;34.00
+device;34.00

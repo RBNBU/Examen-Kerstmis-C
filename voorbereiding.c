@@ -83,6 +83,7 @@ int messageArrived(void *context, char *topicName, int topicLen, MQTTClient_mess
     fclose(file);
 
     update_device_data(device, value);
+    print_device_data();
 
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
@@ -94,7 +95,27 @@ void connlost(void *context, char *cause) {
     printf("     cause: %s\n", cause);
 }
 
+void process_existing_data() {
+    FILE *file = fopen("output.txt", "r");
+    if (file == NULL) {
+        printf("No existing data to process.\n");
+        return;
+    }
+
+    char line[100];
+    while (fgets(line, sizeof(line), file)) {
+        char device[50];
+        double value;
+        sscanf(line, "%[^;];%lf", device, &value);
+        update_device_data(device, value);
+    }
+    fclose(file);
+    print_device_data();
+}
+
 int main() {
+    process_existing_data();
+
     MQTTClient client;
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
     int rc;
