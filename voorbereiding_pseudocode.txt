@@ -1,0 +1,41 @@
+START
+
+1. Define a list to store data for devices, each containing:
+   - Device name
+   - Sum of values
+   - Minimum value
+   - Maximum value
+   - Count of values
+
+2. Read existing data from 'output.txt':
+   - For each line, extract the device name and value.
+   - Update the device data (sum, min, max, count).
+
+3. Connect to the MQTT server with the following settings:
+   - Server address
+   - Client ID
+   - Keep-alive interval and clean session enabled.
+   - Set callbacks for:
+     - Connection lost: Log the cause.
+     - Message received: Process the message.
+     - Message delivery confirmation: Log confirmation.
+
+4. Subscribe to the specified MQTT topic.
+
+5. When a message is received:
+   - Parse the message to extract the device name and value.
+   - Append the message to 'output.txt'.
+   - Check if the device exists in the list:
+     - If yes, update its sum, min, max, and count.
+     - If no, add it to the list with initial values.
+   - Display the updated data for all devices.
+
+6. Wait for user input in a loop:
+   - If the user enters 'Q' or 'q', exit the loop.
+
+7. Disconnect from the MQTT server.
+
+8. Display the final overall statistics:
+   - Global minimum, maximum, and average across all devices.
+
+END
