@@ -1,0 +1,41 @@
+START
+
+Definieer een lijst voor inkomende berichten
+    datum_tijd_stroom
+    tarief_indicator
+    actueel_stroomverbruik
+    actueel_spanning
+    totaal_dagverbruik
+    totaal_nachtverbruik
+    totaal_dagopbrengst
+    totaal_nachtopbrengst
+    datum_tijd_gas
+    totaal_gasverbuik
+
+initializeer alle verdere benodigdheden
+
+connlost
+    bij verlies van connectie, print de oorzaak
+
+print_device_data
+    stel het nodige bericht op
+    print de maxima, minima en totale waarden
+    print de maxima, minima en totale waarden per dag, (aantal dagen)
+
+output_file
+    schrijf het verwerkte bericht naar "output.txt"
+
+messageArrived
+    wanneer een bericht toekomt, parse het (;)
+    print in de terminal voor de gebruiker, in de juiste volgorde
+    zet het bericht om in een lange string
+    output_file functie toepassen op het verwerkte bericht
+    kijk na of de nieuwe timestring een nieuwe dag is
+        nieuwe dag? dag_count ++
+    wanneer tarief_indicator gelijk is aan 0, einde van MQTT bericht, pas de print_device_data functie toekomt
+
+main 
+    initializeer de connectie met de MQTT broker
+    wacht tot er berichten binnenkomen
+
+end
