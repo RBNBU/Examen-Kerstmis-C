@@ -35,10 +35,9 @@ void delivered(void *context, MQTTClient_deliveryToken dt) {
     printf("Message with token value %d delivery confirmed\n", dt);
 }
 
-void print_device_data() {
-    int aantal_dagen = 4; //temp nummer
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\nElektriciteit- en gas verbruik - totalen per dag\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    printf("\nSTARTWAARDEN\n");
+void print_device_data(int aantalDagen) {
+    printf("\n\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\nElektriciteit- en gas verbruik - totalen per dag\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("\nSTARTWAARDEN\n\n");
     printf("DATUM - TIJD: \n");
     printf("Dag Totaal verbruik: \n");
     printf("DAG Totaal opbrengst: \n");
@@ -47,7 +46,7 @@ void print_device_data() {
     printf("GAS Totaal verbruik: \n");
     //print waardes totaal
 
-for (int i = 0; i < aantal_dagen; ++i){
+for (int i = 0; i < aantalDagen; ++i){
     printf("\n\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\nTOTALEN:\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("Datum: \n");
@@ -59,7 +58,7 @@ for (int i = 0; i < aantal_dagen; ++i){
     //print per dag
 }
     printf("\n\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\nEinde van dit rapport\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++\nEinde van dit rapport\n+++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
 }
 
 void output_file(const char *message) { //write incoming messages to a log file "output.txt"
@@ -76,6 +75,7 @@ int messageArrived(void *context, char *topicName, int topicLen, MQTTClient_mess
     char *payload = message->payload;
     char *token_str;
     long double totaal_gasverbruik;
+    int aantalDagen = 4; //tijdelijk nummer
 
     token_str = strtok(payload, ";");
     char *datum_tijd_stroom = token_str;
@@ -99,7 +99,7 @@ int messageArrived(void *context, char *topicName, int topicLen, MQTTClient_mess
     totaal_gasverbruik = strtold(token_str, NULL);
 
     if (totaal_gasverbruik == 0) { //wanneer gasverbruik 0 is, detecteer end-of-broadcast en print data
-        print_device_data();
+        print_device_data(aantalDagen);
         exit(1);
     }
 
