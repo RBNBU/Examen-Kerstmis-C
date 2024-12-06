@@ -31,7 +31,7 @@ messageArrived
     zet het bericht om in een lange string
     output_file functie toepassen op het verwerkte bericht
     kijk na of de nieuwe timestring een nieuwe dag is
-        nieuwe dag? dag_count ++
+        nieuwe dag? dag_count toenemen met 1
     wanneer tarief_indicator gelijk is aan 0, einde van MQTT bericht, pas de print_device_data functie toekomt
 
 main 
